@@ -1,7 +1,8 @@
-package com.example.bb_characters;
+package com.example.bb_characters.ui.characterdisplay;
 
 import android.os.Bundle;
 
+import com.example.bb_characters.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 

@@ -1,5 +1,7 @@
 package com.example.bb_characters.data.di;
 
+import android.content.Context;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -10,6 +12,7 @@ import com.example.bb_characters.data.api.CharacterDisplayService;
 import com.example.bb_characters.data.repository.CharacterDisplayDataRepository;
 import com.example.bb_characters.data.repository.CharacterDisplayRepository;
 import com.example.bb_characters.data.repository.remote.CharacterDisplayRemoteDataSource;
+import com.example.bb_characters.ui.CharacterApplication;
 import com.google.gson.Gson;
 
 /**
@@ -18,6 +21,7 @@ import com.google.gson.Gson;
  */
 public class FakeDependencyInjection {
 
+    private static Context applicationContext;
     private static Retrofit retrofit;
     private static Gson gson;
     private static CharacterDisplayRepository characterDisplayRepository;
@@ -65,4 +69,7 @@ public class FakeDependencyInjection {
         return characterDisplayService;
     }
 
+    public static void setContext(Context context) {
+        applicationContext = context;
+    }
 }
