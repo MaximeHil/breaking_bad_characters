@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bb_characters">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".ui.CharacterApplication"
         android:allowBackup="true"

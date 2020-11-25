@@ -39,7 +39,7 @@
             android:background="@color/bbgreen"
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/grey"
-            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorColor="@color/bbyellow"
             >
 
             <com.google.android.material.tabs.TabItem

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.example.bb_characters.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setViewPagerAndTabs();
         setFAB();
     }
+
 
     private void setViewPagerAndTabs() {
         viewPager = findViewById(R.id.view_pager);
