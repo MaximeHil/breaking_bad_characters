@@ -1,4 +1,4 @@
-package com.example.bb_characters.ui.main;
+package com.example.bb_characters.ui.characterdisplay;
 
 import android.content.Context;
 

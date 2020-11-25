@@ -1,4 +1,4 @@
-package com.example.bb_characters.ui.main;
+package com.example.bb_characters.ui.characterdisplay;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bb_characters.R;
+import com.example.bb_characters.ui.viewmodel.PageViewModel;
 
 /**
  * A placeholder fragment containing a simple view.

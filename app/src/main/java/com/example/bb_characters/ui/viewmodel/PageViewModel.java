@@ -1,4 +1,4 @@
-package com.example.bb_characters.ui.main;
+package com.example.bb_characters.ui.viewmodel;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
