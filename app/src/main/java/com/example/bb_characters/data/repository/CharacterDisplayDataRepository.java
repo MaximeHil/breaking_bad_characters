@@ -10,6 +10,10 @@ public class CharacterDisplayDataRepository implements CharacterDisplayRepositor
 
     private CharacterDisplayRemoteDataSource characterDisplayRemoteDataSource;
 
+    public CharacterDisplayDataRepository(CharacterDisplayRemoteDataSource characterDisplayRemoteDataSource){
+        this.characterDisplayRemoteDataSource = characterDisplayRemoteDataSource;
+    }
+
     @Override
     public Single<CharactersResponse> getAllCharacters() {
         return this.characterDisplayRemoteDataSource.getAllCharacters();

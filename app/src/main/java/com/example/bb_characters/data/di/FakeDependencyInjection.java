@@ -6,6 +6,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import com.example.bb_characters.data.api.CharacterDisplayService;
+import com.example.bb_characters.data.repository.CharacterDisplayDataRepository;
+import com.example.bb_characters.data.repository.CharacterDisplayRepository;
+import com.example.bb_characters.data.repository.remote.CharacterDisplayRemoteDataSource;
 import com.google.gson.Gson;
 
 /**
@@ -16,6 +20,8 @@ public class FakeDependencyInjection {
 
     private static Retrofit retrofit;
     private static Gson gson;
+    private static CharacterDisplayRepository characterDisplayRepository;
+    private static CharacterDisplayService characterDisplayService;
 
     //Création d'une instance pour utiliser l'interface Retrofit
     public static Retrofit getRetrofit() {
@@ -42,4 +48,21 @@ public class FakeDependencyInjection {
         }
         return gson;
     }
+
+    public static CharacterDisplayRepository getCharacterDisplayRepository() {
+        if (characterDisplayRepository == null) {
+            characterDisplayRepository = new CharacterDisplayDataRepository(
+                    new CharacterDisplayRemoteDataSource(getCharacterDisplayService())
+            );
+        }
+        return characterDisplayRepository;
+    }
+
+    public static CharacterDisplayService getCharacterDisplayService() {
+        if (characterDisplayService == null) {
+            characterDisplayService = getRetrofit().create(CharacterDisplayService.class);
+        }
+        return characterDisplayService;
+    }
+
 }
