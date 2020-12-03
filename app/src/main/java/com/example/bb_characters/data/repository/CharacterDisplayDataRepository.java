@@ -1,7 +1,7 @@
 package com.example.bb_characters.data.repository;
 
 import com.example.bb_characters.data.api.model.Character;
-import com.example.bb_characters.data.api.model.CharactersResponse;
+import com.example.bb_characters.data.api.model.CharacterDetails;
 import com.example.bb_characters.data.repository.remote.CharacterDisplayRemoteDataSource;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class CharacterDisplayDataRepository implements CharacterDisplayRepositor
     }
 
     @Override
-    public Single<CharactersResponse> getAllCharacters() {
+    public Single<List<CharacterDetails>> getAllCharacters() {
         return this.characterDisplayRemoteDataSource.getAllCharacters();
     }
 

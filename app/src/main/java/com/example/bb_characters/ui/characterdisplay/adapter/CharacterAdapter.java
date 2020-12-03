@@ -55,11 +55,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     // Cette fonction reçoit la liste des personnages, les ajoute dans
     // dans l'adapter et notifie le recyclerview
     public void bindViewModels(List<CharacterViewItem> characterViewItemList){
-        Log.i("ADAPTER", "DATA CHANGED");
         this.characterViewItemList.clear();
-        Log.i("ADAPTER", "dataset size avant : " + characterViewItemList.size());
         this.characterViewItemList.addAll(characterViewItemList);
-        Log.i("ADAPTER", "dataset size après : " + characterViewItemList.size());
         notifyDataSetChanged();
     }
 
@@ -79,7 +76,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        Log.i("ADAPTER", "Image Url : " + characterViewItemList.get(position).getImageUrl());
         holder.bind(characterViewItemList.get(position).getImageUrl());
 
         //holder.getImageView().setImageURI(Uri.parse(imagesUrls.get(position)));
@@ -88,7 +84,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        Log.i("ADAPTER", "dataset size : " + characterViewItemList.size());
         return characterViewItemList.size();
     }
 }

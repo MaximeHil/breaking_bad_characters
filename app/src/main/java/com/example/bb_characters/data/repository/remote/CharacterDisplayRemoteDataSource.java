@@ -2,7 +2,7 @@ package com.example.bb_characters.data.repository.remote;
 
 import com.example.bb_characters.data.api.CharacterDisplayService;
 import com.example.bb_characters.data.api.model.Character;
-import com.example.bb_characters.data.api.model.CharactersResponse;
+import com.example.bb_characters.data.api.model.CharacterDetails;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class CharacterDisplayRemoteDataSource {
         this.characterDisplayService = characterDisplayService;
     }
 
-    public Single<CharactersResponse> getAllCharacters(){
+    public Single<List<CharacterDetails>> getAllCharacters(){
         return this.characterDisplayService.getAllCharacters();
     }
 

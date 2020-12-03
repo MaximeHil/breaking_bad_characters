@@ -1,11 +1,35 @@
 package com.example.bb_characters.data.api.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class CharacterDetails {
 
+    @SerializedName("char_id")
     private int char_id;
-    private String name, birthday, img, status, nickname, portrayed, category;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("birthday")
+    private String birthday;
+
+    @SerializedName("img")
+    private String img;
+
+    @SerializedName("status")
+    private String status;
+
+    @SerializedName("nickname")
+    private String nickname;
+
+    @SerializedName("portrayed")
+    private String portrayed;
+
+    @SerializedName("category")
+    private String category;
+
     private List<String> occupation;
     private List<Integer> appearance, better_call_saul_appearance;
 

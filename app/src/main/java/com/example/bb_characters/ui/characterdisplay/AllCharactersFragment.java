@@ -28,12 +28,10 @@ import java.util.List;
  */
 public class AllCharactersFragment extends Fragment {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String TAB_NAME = "Characters";
     private View rootView;
     private RecyclerView recyclerView;
     private CharacterAdapter characterAdapter;
-    private ArrayList<String> images = new ArrayList<String>();
     private CharactersViewModel charactersViewModel;
 
     private CharactersViewModel pageViewModel;
@@ -50,9 +48,6 @@ public class AllCharactersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        this.images.add("https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg");
-        this.images.add("https://vignette.wikia.nocookie.net/breakingbad/images/9/95/JesseS5.jpg/revision/latest?cb=20120620012441");
-        this.images.add("https://vignette.wikia.nocookie.net/breakingbad/images/9/95/JesseS5.jpg/revision/latest?cb=20120620012441");
         rootView = inflater.inflate(R.layout.fragment_all_characters, container, false);
         return rootView;
     }
@@ -67,20 +62,15 @@ public class AllCharactersFragment extends Fragment {
     }
 
     private void registerViewModels() {
-        Log.i("FRAGMENT", "On est dans le registerViewModels");
         charactersViewModel = new ViewModelProvider(requireActivity(), FakeDependencyInjection.getViewModelFactory()).get(CharactersViewModel.class);
-        Log.i("FRAGMENT", "View model créé");
-
-        Log.i("FRAGMENT", "Tous les personnages récupérés");
+        charactersViewModel.getAllCharacters();
         charactersViewModel.getCharacters().observe(getViewLifecycleOwner(), new Observer<List<CharacterViewItem>>() {
             @Override
             public void onChanged(List<CharacterViewItem> characterItemViewModelList) {
-                Log.i("FRAGMENT", "List size : " + characterItemViewModelList.size());
                 characterAdapter.bindViewModels(characterItemViewModelList);
             }
         });
-        charactersViewModel.getAllCharacters();
-        Log.i("FRAGMENT", "Fin de la méthode");
+
     }
 
     private void setupRecyclerView() {

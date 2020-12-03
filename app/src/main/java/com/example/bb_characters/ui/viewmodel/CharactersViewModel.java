@@ -1,19 +1,13 @@
 package com.example.bb_characters.ui.viewmodel;
 
-import android.util.Log;
-
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.example.bb_characters.data.api.model.CharactersResponse;
+import com.example.bb_characters.data.api.model.CharacterDetails;
 import com.example.bb_characters.data.repository.CharacterDisplayRepository;
 import com.example.bb_characters.ui.characterdisplay.adapter.CharacterViewItem;
 import com.example.bb_characters.ui.characterdisplay.mapper.CharacterToViewModelMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,25 +35,21 @@ public class CharactersViewModel extends ViewModel {
     }
 
     public void getAllCharacters(){
-        Log.i("VIEW MODEL", "debut get all characters");
         compositeDisposable.clear();
         compositeDisposable.add(characterDisplayRepository.getAllCharacters()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<CharactersResponse>() {
+                .subscribeWith(new DisposableSingleObserver<List<CharacterDetails>>() {
 
                     @Override
-                    public void onSuccess(@NonNull CharactersResponse charactersResponse) {
-                        Log.i("VIEW MODEL", "Response qui arrive : " + charactersResponse.getTotalItems());
-                        characters.setValue(characterToViewModelMapper.map(charactersResponse.getCharactersList()));
-                        Log.i("VIEW MODEL", "On est passé par là + size : " + characters.getValue().size());
+                    public void onSuccess(@NonNull List<CharacterDetails> characterDetailsList) {
+                        characters.setValue(characterToViewModelMapper.map(characterDetailsList));
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         // handle the error case
                         //Yet, do not do nothing in this app
-                        Log.i("VIEW MODEL", "Une erreur s'est produite !!!");
 
                         System.out.println(e.toString());
                     }
