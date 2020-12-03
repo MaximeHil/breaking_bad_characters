@@ -11,7 +11,7 @@ public class CharactersResponse {
 
     int totalItems;
 
-    public List<Character> getBookList() {
+    public List<Character> getCharactersList() {
         return charactersList;
     }
 

@@ -9,12 +9,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bb_characters.R;
 import com.example.bb_characters.ui.characterdisplay.adapter.CharacterAdapter;
-import com.example.bb_characters.ui.viewmodel.PageViewModel;
+import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ public class AllCharactersFragment extends Fragment {
     private CharacterAdapter characterAdapter;
     private ArrayList<String> images = new ArrayList<String>();
 
-    private PageViewModel pageViewModel;
+    private CharactersViewModel pageViewModel;
 
     private AllCharactersFragment(){
 
