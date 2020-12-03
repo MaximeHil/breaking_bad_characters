@@ -1,5 +1,7 @@
 package com.example.bb_characters.ui.viewmodel;
 
+import android.util.Log;
+
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -37,7 +39,9 @@ public class CharactersViewModel extends ViewModel {
     public MutableLiveData<List<CharacterViewItem>> getCharacters(){
         return characters;
     }
+
     public void getAllCharacters(){
+        Log.i("VIEW MODEL", "debut get all characters");
         compositeDisposable.clear();
         compositeDisposable.add(characterDisplayRepository.getAllCharacters()
                 .subscribeOn(Schedulers.io())
@@ -46,13 +50,17 @@ public class CharactersViewModel extends ViewModel {
 
                     @Override
                     public void onSuccess(@NonNull CharactersResponse charactersResponse) {
+                        Log.i("VIEW MODEL", "Response qui arrive : " + charactersResponse.getTotalItems());
                         characters.setValue(characterToViewModelMapper.map(charactersResponse.getCharactersList()));
+                        Log.i("VIEW MODEL", "On est passé par là + size : " + characters.getValue().size());
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         // handle the error case
                         //Yet, do not do nothing in this app
+                        Log.i("VIEW MODEL", "Une erreur s'est produite !!!");
+
                         System.out.println(e.toString());
                     }
                 }));

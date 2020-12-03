@@ -1,6 +1,7 @@
 package com.example.bb_characters.ui.characterdisplay.adapter;
 
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bb_characters.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
 
-    private ArrayList<String> imagesUrls;
+    private List<CharacterViewItem> characterViewItemList;
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     public static class CharacterViewHolder extends RecyclerView.ViewHolder {
-        //private final TextView textView;
         private ImageView characterImageView;
         private View v;
 
@@ -32,7 +33,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             super(view);
             // Define click listener for the ViewHolder's View
             this.v = view;
-            characterImageView = (ImageView) view.findViewById(R.id.character_imageview);
+            characterImageView = view.findViewById(R.id.character_imageview);
         }
 
         public ImageView getImageView() {
@@ -46,14 +47,20 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet ArrayList<String> containing the data to populate views to be used
-     * by RecyclerView.
-     */
-    public CharacterAdapter(ArrayList<String> dataSet) {
-        imagesUrls = dataSet;
+
+    public CharacterAdapter() {
+        characterViewItemList = new ArrayList<>() ;
+    }
+
+    // Cette fonction reçoit la liste des personnages, les ajoute dans
+    // dans l'adapter et notifie le recyclerview
+    public void bindViewModels(List<CharacterViewItem> characterViewItemList){
+        Log.i("ADAPTER", "DATA CHANGED");
+        this.characterViewItemList.clear();
+        Log.i("ADAPTER", "dataset size avant : " + characterViewItemList.size());
+        this.characterViewItemList.addAll(characterViewItemList);
+        Log.i("ADAPTER", "dataset size après : " + characterViewItemList.size());
+        notifyDataSetChanged();
     }
 
     // Create new views (invoked by the layout manager)
@@ -72,7 +79,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        holder.bind(imagesUrls.get(position));
+        Log.i("ADAPTER", "Image Url : " + characterViewItemList.get(position).getImageUrl());
+        holder.bind(characterViewItemList.get(position).getImageUrl());
 
         //holder.getImageView().setImageURI(Uri.parse(imagesUrls.get(position)));
     }
@@ -80,6 +88,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return imagesUrls.size();
+        Log.i("ADAPTER", "dataset size : " + characterViewItemList.size());
+        return characterViewItemList.size();
     }
 }

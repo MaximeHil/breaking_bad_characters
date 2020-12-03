@@ -4,6 +4,8 @@ import com.example.bb_characters.data.api.CharacterDisplayService;
 import com.example.bb_characters.data.api.model.Character;
 import com.example.bb_characters.data.api.model.CharactersResponse;
 
+import java.util.List;
+
 import io.reactivex.Single;
 
 public class CharacterDisplayRemoteDataSource {

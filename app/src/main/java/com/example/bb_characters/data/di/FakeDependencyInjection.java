@@ -1,6 +1,13 @@
 package com.example.bb_characters.data.di;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.example.bb_characters.data.api.CharacterDisplayService;
+import com.example.bb_characters.data.repository.CharacterDisplayDataRepository;
+import com.example.bb_characters.data.repository.CharacterDisplayRepository;
+import com.example.bb_characters.data.repository.remote.CharacterDisplayRemoteDataSource;
+import com.example.bb_characters.ui.viewmodel.ViewModelFactory;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -8,11 +15,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import com.example.bb_characters.data.api.CharacterDisplayService;
-import com.example.bb_characters.data.repository.CharacterDisplayDataRepository;
-import com.example.bb_characters.data.repository.CharacterDisplayRepository;
-import com.example.bb_characters.data.repository.remote.CharacterDisplayRemoteDataSource;
-import com.example.bb_characters.ui.CharacterApplication;
 import com.google.gson.Gson;
 
 /**
@@ -26,9 +28,11 @@ public class FakeDependencyInjection {
     private static Gson gson;
     private static CharacterDisplayRepository characterDisplayRepository;
     private static CharacterDisplayService characterDisplayService;
+    private static ViewModelFactory viewModelFactory;
 
     //Création d'une instance pour utiliser l'interface Retrofit
     public static Retrofit getRetrofit() {
+        Log.i("Fake DI", "Debut retrofit");
         if (retrofit == null) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -43,6 +47,7 @@ public class FakeDependencyInjection {
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .build();
         }
+        Log.i("Fake DI", "Fin retrofit");
         return retrofit;
     }
 
@@ -71,5 +76,12 @@ public class FakeDependencyInjection {
 
     public static void setContext(Context context) {
         applicationContext = context;
+    }
+
+    public static ViewModelFactory getViewModelFactory() {
+        if (viewModelFactory == null) {
+            viewModelFactory = new ViewModelFactory(getCharacterDisplayRepository());
+        }
+        return viewModelFactory;
     }
 }
