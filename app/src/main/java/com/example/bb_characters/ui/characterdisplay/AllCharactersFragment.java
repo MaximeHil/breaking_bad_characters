@@ -77,6 +77,6 @@ public class AllCharactersFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recycler_view);
         characterAdapter = new CharacterAdapter();
         recyclerView.setAdapter(characterAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 }

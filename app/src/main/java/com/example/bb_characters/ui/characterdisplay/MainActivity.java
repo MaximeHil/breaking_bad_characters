@@ -1,32 +1,77 @@
 package com.example.bb_characters.ui.characterdisplay;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 
 import com.example.bb_characters.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.Menu;
 import android.view.View;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean flag = true; // true if view is on list mode, false if view is on grid mode.
+    boolean flag = false; // true if view is on list mode, false if view is on grid mode.
     private ViewPager viewPager;
+    private ImageButton list_button, grid_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setViewPagerAndTabs();
-        setFAB();
+
+        setButtons();
+        //setToolbar();
+        //setFAB();
     }
 
+    private void setButtons() {
+        list_button = findViewById(R.id.list_button);
+        grid_button = findViewById(R.id.grid_button);
+
+        list_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*v.animate().translationY(v.getHeight()).setDuration(250).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        v.setVisibility(View.GONE);
+                        grid_button.setVisibility(View.VISIBLE);
+                        grid_button.animate().translationY(0).setDuration(250);
+                    }
+                });*/
+                list_button.setVisibility(View.INVISIBLE);
+                grid_button.setVisibility(View.VISIBLE);
+            }
+        });
+
+        grid_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*v.animate().translationY(v.getHeight()).setDuration(250).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        v.setVisibility(View.GONE);
+                        list_button.setVisibility(View.VISIBLE);
+                        list_button.animate().translationY(0).setDuration(250);
+                    }
+                });*/
+                grid_button.setVisibility(View.INVISIBLE);
+                list_button.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
 
     private void setViewPagerAndTabs() {
         viewPager = findViewById(R.id.view_pager);
@@ -63,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);*/
     }
 
-    private void setFAB() {
+    /*private void setFAB() {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,5 +123,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 }
