@@ -22,7 +22,7 @@ public class CharacterDisplayDataRepository implements CharacterDisplayRepositor
     }
 
     @Override
-    public Single<Character> getCharacter(int id) {
+    public Single<List<CharacterDetails>> getCharacter(int id) {
         return this.characterDisplayRemoteDataSource.getCharacter(id);
     }
 }

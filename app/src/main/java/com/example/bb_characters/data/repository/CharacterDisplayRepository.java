@@ -11,5 +11,5 @@ public interface CharacterDisplayRepository {
 
     Single<List<CharacterDetails>> getAllCharacters();
 
-    Single<Character> getCharacter(int id);
+    Single<List<CharacterDetails>> getCharacter(int id);
 }

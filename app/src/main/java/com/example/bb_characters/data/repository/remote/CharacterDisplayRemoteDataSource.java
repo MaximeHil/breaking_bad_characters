@@ -20,7 +20,7 @@ public class CharacterDisplayRemoteDataSource {
         return this.characterDisplayService.getAllCharacters();
     }
 
-    public Single<Character> getCharacter(int id){
+    public Single<List<CharacterDetails>> getCharacter(int id){
         return this.characterDisplayService.getCharacter(id);
     }
 
