@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -20,36 +21,54 @@ import java.util.List;
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
 
     private List<CharacterViewItem> characterViewItemList;
+    private CharacterActionInterface characterActionInterface;
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     public static class CharacterViewHolder extends RecyclerView.ViewHolder {
-        private ImageView characterImageView;
+        private ImageButton characterImageButton;
         private View v;
+        private CharacterViewItem characterViewItem;
+        private CharacterActionInterface characterActionInterface;
 
-        public CharacterViewHolder(View view) {
+        public CharacterViewHolder(View view, final CharacterActionInterface characterActionInterface) {
             super(view);
             // Define click listener for the ViewHolder's View
             this.v = view;
-            characterImageView = view.findViewById(R.id.character_imageview);
+            this.characterActionInterface = characterActionInterface;
+            characterImageButton = view.findViewById(R.id.character_imageview);
+
+            setupListener();
+
         }
 
-        public ImageView getImageView() {
-            return characterImageView;
+        private void setupListener() {
+            characterImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    characterActionInterface.onCharacterClicked(characterViewItem.getCharacterId());
+                }
+            });
         }
 
-        public void bind(String imageUrl){
+        public ImageButton getImageButton() {
+            return characterImageButton;
+        }
+
+        public void bind(CharacterViewItem viewItem){
+            this.characterViewItem = viewItem;
             Glide.with(v)
-                    .load(imageUrl)
-                    .into(characterImageView);
+                    .load(viewItem.getImageUrl())
+                    .into(characterImageButton);
         }
     }
 
 
-    public CharacterAdapter() {
+    public CharacterAdapter(CharacterActionInterface characterActionInterface) {
         characterViewItemList = new ArrayList<>() ;
+        this.characterActionInterface = characterActionInterface;
     }
 
     // Cette fonction reçoit la liste des personnages, les ajoute dans
@@ -67,7 +86,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.character_image, viewGroup, false);
 
-        return new CharacterViewHolder(view);
+        return new CharacterViewHolder(view, characterActionInterface);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -76,7 +95,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        holder.bind(characterViewItemList.get(position).getImageUrl());
+        holder.bind(characterViewItemList.get(position));
 
         //holder.getImageView().setImageURI(Uri.parse(imagesUrls.get(position)));
     }

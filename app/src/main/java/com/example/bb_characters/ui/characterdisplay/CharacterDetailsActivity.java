@@ -1,26 +1,39 @@
 package com.example.bb_characters.ui.characterdisplay;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.example.bb_characters.data.api.model.CharacterDetails;
+import com.example.bb_characters.data.di.FakeDependencyInjection;
+import com.example.bb_characters.ui.characterdisplay.adapter.CharacterDetailsViewItem;
+import com.example.bb_characters.ui.characterdisplay.adapter.CharacterViewItem;
+import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bb_characters.R;
 
+import java.util.List;
+
 public class CharacterDetailsActivity extends AppCompatActivity {
 
-    private CharacterDetails details_example;
     private ImageView photo;
     private TextView name, nickname, birthday, portrayed;
+    private int characterId;
+    private CharactersViewModel charactersViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +42,29 @@ public class CharacterDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //setLayoutExample();
+        // On récupère l'identifiant du personnage à afficher
+        Intent i = getIntent();
+        this.characterId = i.getIntExtra("CharacterId", 1);
+
+        registerViewModel();
     }
 
-    /*private void setLayoutExample() {
-        details_example = new CharacterDetails();
-        details_example.setImg("https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg");
-        details_example.setName("Walter White");
-        details_example.setBirthday("09-07-1958");
-        details_example.setNickname("Heisenberg");
-        details_example.setPortrayed("Bryan Cranston");
+    // On récupère l'intstance du view model via le view model factory
+    private void registerViewModel() {
+        charactersViewModel = new ViewModelProvider(this, FakeDependencyInjection.getViewModelFactory()).get(CharactersViewModel.class);
+
+        charactersViewModel.getCharacter().observe(this, new Observer<List<CharacterDetailsViewItem>>() {
+            @Override
+            public void onChanged(List<CharacterDetailsViewItem> characterDetailsViewItemList) {
+                setLayout(characterDetailsViewItemList.get(0));
+            }
+        });
+        charactersViewModel.getCharacterById(characterId);
+
+    }
+
+    // Permet d'afficher sur la page les informations passées en argument
+    private void setLayout(CharacterDetailsViewItem characterToDisplay) {
 
         photo = findViewById(R.id.character_photo);
         name = findViewById(R.id.character_name);
@@ -46,12 +72,12 @@ public class CharacterDetailsActivity extends AppCompatActivity {
         birthday = findViewById(R.id.character_birthday);
         portrayed = findViewById(R.id.character_portrayed);
 
-        name.append(" " + details_example.getName());
-        nickname.append(" " + details_example.getNickname());
-        birthday.append(" " + details_example.getBirthday());
-        portrayed.append(" " + details_example.getPortrayed());
+        name.append(" " + characterToDisplay.getName());
+        nickname.append(" " + characterToDisplay.getNickname());
+        birthday.append(" " + characterToDisplay.getBirthday());
+        portrayed.append(" " + characterToDisplay.getPortrayed());
         Glide.with(this)
-                .load(details_example.getImg())
+                .load(characterToDisplay.getUrl())
                 .into(photo);
-    }*/
+    }
 }

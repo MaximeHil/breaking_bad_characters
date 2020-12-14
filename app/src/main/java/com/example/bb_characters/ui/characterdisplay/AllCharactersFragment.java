@@ -1,5 +1,6 @@
 package com.example.bb_characters.ui.characterdisplay;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bb_characters.R;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
+import com.example.bb_characters.ui.characterdisplay.adapter.CharacterActionInterface;
 import com.example.bb_characters.ui.characterdisplay.adapter.CharacterAdapter;
 import com.example.bb_characters.ui.characterdisplay.adapter.CharacterViewItem;
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
@@ -26,7 +28,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AllCharactersFragment extends Fragment {
+public class AllCharactersFragment extends Fragment implements CharacterActionInterface {
 
     public static final String TAB_NAME = "Characters";
     private View rootView;
@@ -75,8 +77,16 @@ public class AllCharactersFragment extends Fragment {
 
     private void setupRecyclerView() {
         recyclerView = rootView.findViewById(R.id.recycler_view);
-        characterAdapter = new CharacterAdapter();
+        characterAdapter = new CharacterAdapter(this);
         recyclerView.setAdapter(characterAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+    }
+
+    @Override
+    public void onCharacterClicked(int characterId) {
+        Intent i = new Intent(getActivity(), CharacterDetailsActivity.class);
+        i.putExtra("CharacterId", characterId);
+        charactersViewModel.getCharacterById(characterId);
+        startActivity(i);
     }
 }
