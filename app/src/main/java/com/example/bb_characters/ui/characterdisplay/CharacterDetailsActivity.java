@@ -41,12 +41,20 @@ public class CharacterDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.character_details);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Character Details");
 
         // On récupère l'identifiant du personnage à afficher
         Intent i = getIntent();
         this.characterId = i.getIntExtra("CharacterId", 1);
 
         registerViewModel();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     // On récupère l'intstance du view model via le view model factory
