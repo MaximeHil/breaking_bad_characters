@@ -21,10 +21,10 @@ public interface CharacterDao {
     Flowable<List<CharacterEntity>> getFavorites();
 
     @Insert
-    Completable addCharacter(CharacterEntity bookEntity);
+    Completable addCharacter(CharacterEntity characterEntity);
 
     @Query("DELETE FROM characters WHERE id = :id")
-    Completable deleteCharacter(String id);
+    Completable deleteCharacter(int id);
 
 
 
