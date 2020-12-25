@@ -22,6 +22,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
     private List<CharacterViewItem> characterViewItemList;
     private CharacterActionInterface characterActionInterface;
+    private boolean isList;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -66,9 +67,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     }
 
 
-    public CharacterAdapter(CharacterActionInterface characterActionInterface) {
+    public CharacterAdapter(CharacterActionInterface characterActionInterface, boolean isList) {
         characterViewItemList = new ArrayList<>() ;
         this.characterActionInterface = characterActionInterface;
+        this.isList = isList;
     }
 
     // Cette fonction reçoit la liste des personnages, les ajoute dans
@@ -84,7 +86,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     public CharacterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.character_image, viewGroup, false);
+                .inflate(isList ? R.layout.character_image_with_name : R.layout.character_image, viewGroup, false);
 
         return new CharacterViewHolder(view, characterActionInterface);
     }

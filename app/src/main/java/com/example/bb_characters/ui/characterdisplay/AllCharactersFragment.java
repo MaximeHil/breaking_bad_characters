@@ -6,24 +6,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bb_characters.R;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
 import com.example.bb_characters.ui.characterdisplay.adapter.CharacterActionInterface;
 import com.example.bb_characters.ui.characterdisplay.adapter.CharacterAdapter;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterViewItem;
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -33,10 +32,11 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
     public static final String TAB_NAME = "Characters";
     private View rootView;
     private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
     private CharacterAdapter characterAdapter;
     private CharactersViewModel charactersViewModel;
-
-    private CharactersViewModel pageViewModel;
+    private ImageButton list_button, grid_button;
+    private boolean asList;
 
     private AllCharactersFragment(){
 
@@ -57,29 +57,56 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setButtons();
         setupRecyclerView();
 
-
         registerViewModels();
+    }
+
+    private void setButtons() {
+        list_button = rootView.getRootView().findViewById(R.id.list_button);
+        grid_button = rootView.getRootView().findViewById(R.id.grid_button);
     }
 
     private void registerViewModels() {
         charactersViewModel = new ViewModelProvider(requireActivity(), FakeDependencyInjection.getViewModelFactory()).get(CharactersViewModel.class);
         charactersViewModel.getAllCharacters();
-        charactersViewModel.getCharacters().observe(getViewLifecycleOwner(), new Observer<List<CharacterViewItem>>() {
-            @Override
-            public void onChanged(List<CharacterViewItem> characterItemViewModelList) {
-                characterAdapter.bindViewModels(characterItemViewModelList);
-            }
-        });
+        charactersViewModel.getCharacters().observe(getViewLifecycleOwner(), characterItemViewModelList -> characterAdapter.bindViewModels(characterItemViewModelList));
 
     }
 
     private void setupRecyclerView() {
         recyclerView = rootView.findViewById(R.id.recycler_view);
-        characterAdapter = new CharacterAdapter(this);
+
+        final RecyclerView.LayoutManager layoutManager_lign = new LinearLayoutManager(getContext());
+        final RecyclerView.LayoutManager layoutManager_grid = new GridLayoutManager(getContext(),2);
+
+        layoutManager = layoutManager_grid;
+        recyclerView.setLayoutManager(layoutManager);
+
+        list_button.setOnClickListener(v -> {
+            list_button.setVisibility(View.INVISIBLE);
+            grid_button.setVisibility(View.VISIBLE);
+            layoutManager = layoutManager_lign;
+            asList = true;
+            Log.i("LISTENER", "Mode list");
+            recyclerView.setLayoutManager(layoutManager);
+        });
+
+        grid_button.setOnClickListener(v -> {
+            grid_button.setVisibility(View.INVISIBLE);
+            list_button.setVisibility(View.VISIBLE);
+            layoutManager = layoutManager_grid;
+            asList = false;
+            Log.i("LISTENER", "Mode grille");
+            recyclerView.setLayoutManager(layoutManager);
+        });
+
+        characterAdapter = new CharacterAdapter(this, asList);
         recyclerView.setAdapter(characterAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        characterAdapter.bindViewModels(new ArrayList<>());
+        //recyclerView.setAdapter(characterAdapter);
+
     }
 
     @Override
