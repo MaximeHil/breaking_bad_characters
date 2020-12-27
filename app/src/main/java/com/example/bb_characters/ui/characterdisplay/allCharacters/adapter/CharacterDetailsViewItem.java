@@ -1,4 +1,4 @@
-package com.example.bb_characters.ui.characterdisplay.adapter;
+package com.example.bb_characters.ui.characterdisplay.allCharacters.adapter;
 
 public class CharacterDetailsViewItem {
 

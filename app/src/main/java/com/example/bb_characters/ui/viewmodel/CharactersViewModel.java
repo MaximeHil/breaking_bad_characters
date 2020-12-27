@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.bb_characters.data.api.model.CharacterDetails;
 import com.example.bb_characters.data.repository.CharacterDisplayRepository;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterDetailsViewItem;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterViewItem;
-import com.example.bb_characters.ui.characterdisplay.mapper.CharacterDetailsToViewItem;
-import com.example.bb_characters.ui.characterdisplay.mapper.CharacterToViewModelMapper;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterDetailsViewItem;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterViewItem;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.mapper.CharacterDetailsToViewItem;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.mapper.CharacterToViewModelMapper;
 
 import java.util.List;
 

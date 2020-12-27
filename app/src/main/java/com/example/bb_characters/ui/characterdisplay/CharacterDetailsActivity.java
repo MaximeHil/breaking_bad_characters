@@ -4,22 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
-import com.example.bb_characters.data.api.model.CharacterDetails;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterDetailsViewItem;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterViewItem;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterDetailsViewItem;
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 

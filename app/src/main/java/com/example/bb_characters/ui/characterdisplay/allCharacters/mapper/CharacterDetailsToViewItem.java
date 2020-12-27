@@ -1,8 +1,7 @@
-package com.example.bb_characters.ui.characterdisplay.mapper;
+package com.example.bb_characters.ui.characterdisplay.allCharacters.mapper;
 
 import com.example.bb_characters.data.api.model.CharacterDetails;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterDetailsViewItem;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterViewItem;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterDetailsViewItem;
 
 import java.util.ArrayList;
 import java.util.List;

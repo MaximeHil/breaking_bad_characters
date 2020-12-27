@@ -1,4 +1,4 @@
-package com.example.bb_characters.ui.characterdisplay;
+package com.example.bb_characters.ui.characterdisplay.allCharacters;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bb_characters.R;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterActionInterface;
-import com.example.bb_characters.ui.characterdisplay.adapter.CharacterAdapter;
+import com.example.bb_characters.ui.characterdisplay.CharacterDetailsActivity;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterActionInterface;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterAdapter;
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
 
 import java.util.ArrayList;

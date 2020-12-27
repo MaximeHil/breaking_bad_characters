@@ -1,22 +1,15 @@
 package com.example.bb_characters.ui.characterdisplay;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 
 import com.example.bb_characters.R;
+import com.example.bb_characters.ui.characterdisplay.allCharacters.AllCharactersFragment;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {

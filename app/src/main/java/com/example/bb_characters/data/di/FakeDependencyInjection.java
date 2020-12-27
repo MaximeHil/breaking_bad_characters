@@ -3,9 +3,13 @@ package com.example.bb_characters.data.di;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.room.Room;
+
 import com.example.bb_characters.data.api.CharacterDisplayService;
+import com.example.bb_characters.data.db.CharacterDatabase;
 import com.example.bb_characters.data.repository.CharacterDisplayDataRepository;
 import com.example.bb_characters.data.repository.CharacterDisplayRepository;
+import com.example.bb_characters.data.repository.local.CharacterDisplayLocalDataSource;
 import com.example.bb_characters.data.repository.remote.CharacterDisplayRemoteDataSource;
 import com.example.bb_characters.ui.viewmodel.ViewModelFactory;
 
@@ -26,6 +30,7 @@ public class FakeDependencyInjection {
     private static Context applicationContext;
     private static Retrofit retrofit;
     private static Gson gson;
+    private static CharacterDatabase characterDatabase;
     private static CharacterDisplayRepository characterDisplayRepository;
     private static CharacterDisplayService characterDisplayService;
     private static ViewModelFactory viewModelFactory;
@@ -61,7 +66,8 @@ public class FakeDependencyInjection {
     public static CharacterDisplayRepository getCharacterDisplayRepository() {
         if (characterDisplayRepository == null) {
             characterDisplayRepository = new CharacterDisplayDataRepository(
-                    new CharacterDisplayRemoteDataSource(getCharacterDisplayService())
+                    new CharacterDisplayRemoteDataSource(getCharacterDisplayService()),
+                    new CharacterDisplayLocalDataSource(getCharacterDatabase())
             );
         }
         return characterDisplayRepository;
@@ -83,5 +89,13 @@ public class FakeDependencyInjection {
             viewModelFactory = new ViewModelFactory(getCharacterDisplayRepository());
         }
         return viewModelFactory;
+    }
+
+    public static CharacterDatabase getCharacterDatabase() {
+        if (characterDatabase == null) {
+            characterDatabase = Room.databaseBuilder(applicationContext,
+                    CharacterDatabase.class, "character-database").build();
+        }
+        return characterDatabase;
     }
 }
