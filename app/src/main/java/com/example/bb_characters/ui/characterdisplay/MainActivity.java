@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.bb_characters.R;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.AllCharactersFragment;
+import com.example.bb_characters.ui.characterdisplay.favoriteCharacters.FavoriteFragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
 
         final AllCharactersFragment allCharactersFragment = AllCharactersFragment.newInstance();
-        final AllCharactersFragment allCharactersFragment2 = AllCharactersFragment.newInstance();
+        final FavoriteFragment favoriteFragment = FavoriteFragment.newInstance();
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 0) {
                     return allCharactersFragment;
                 }
-                return allCharactersFragment2;
+                return favoriteFragment;
             }
 
             @Override
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 0) {
                     return AllCharactersFragment.TAB_NAME;
                 }
-                return AllCharactersFragment.TAB_NAME;
+                return FavoriteFragment.TAB_NAME;
             }
 
             @Override

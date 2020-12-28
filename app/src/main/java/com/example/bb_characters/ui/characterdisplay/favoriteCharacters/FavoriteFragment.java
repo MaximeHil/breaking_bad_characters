@@ -18,6 +18,7 @@ import com.example.bb_characters.R;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterActionInterface;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterAdapter;
 import com.example.bb_characters.ui.characterdisplay.favoriteCharacters.adapter.CharacterFavoriteAdapter;
+import com.example.bb_characters.ui.viewmodel.FavoriteViewModel;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class FavoriteFragment extends Fragment {
     private View rootView;
     private RecyclerView recyclerView;
     private CharacterFavoriteAdapter characterFavoriteAdapter;
-    private CharacterFavoriteViewModel bookFavoriteViewModel;
+    private FavoriteViewModel favoriteViewModel;
 
     private FavoriteFragment() {
     }
@@ -63,9 +64,4 @@ public class FavoriteFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-
-    @Override
-    public void onCharacterClicked(int characterId) {
-
-    }
 }
