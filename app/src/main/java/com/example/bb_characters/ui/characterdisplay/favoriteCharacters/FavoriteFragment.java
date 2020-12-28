@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bb_characters.R;
+import com.example.bb_characters.data.di.FakeDependencyInjection;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterActionInterface;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterAdapter;
 import com.example.bb_characters.ui.characterdisplay.favoriteCharacters.adapter.CharacterFavoriteAdapter;
+import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
 import com.example.bb_characters.ui.viewmodel.FavoriteViewModel;
 
 import java.util.List;
@@ -54,6 +56,7 @@ public class FavoriteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setupRecyclerView();
+        registerViewModels();
     }
 
 
@@ -62,6 +65,13 @@ public class FavoriteFragment extends Fragment {
         characterFavoriteAdapter = new CharacterFavoriteAdapter();
         recyclerView.setAdapter(characterFavoriteAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private void registerViewModels() {
+        favoriteViewModel = new ViewModelProvider(requireActivity(), FakeDependencyInjection.getViewModelFactory()).get(FavoriteViewModel.class);
+        favoriteViewModel.getFavoriteCharacters();
+        favoriteViewModel.getCharacters().observe(getViewLifecycleOwner(), characterItemViewModelList -> characterFavoriteAdapter.bindViewModels(characterItemViewModelList));
+
     }
 
 }

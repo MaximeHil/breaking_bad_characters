@@ -31,6 +31,10 @@ public class FavoriteViewModel extends ViewModel {
 
     private MutableLiveData<List<CharacterFavoriteViewItem>> favoriteCharacters = new MutableLiveData<>();
 
+    public MutableLiveData<List<CharacterFavoriteViewItem>> getCharacters(){
+        return favoriteCharacters;
+    }
+
     public void getFavoriteCharacters(){
         compositeDisposable.clear();
         compositeDisposable.add(characterDisplayRepository.getFavoriteCharacters()
