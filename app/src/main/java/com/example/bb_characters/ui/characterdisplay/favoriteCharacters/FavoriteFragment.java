@@ -20,6 +20,7 @@ import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.Chara
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterAdapter;
 import com.example.bb_characters.ui.characterdisplay.favoriteCharacters.adapter.CharacterFavoriteAdapter;
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
+import com.example.bb_characters.ui.viewmodel.Event;
 import com.example.bb_characters.ui.viewmodel.FavoriteViewModel;
 
 import java.util.List;
@@ -72,6 +73,12 @@ public class FavoriteFragment extends Fragment {
         favoriteViewModel.getFavoriteCharacters();
         favoriteViewModel.getCharacters().observe(getViewLifecycleOwner(), characterItemViewModelList -> characterFavoriteAdapter.bindViewModels(characterItemViewModelList));
 
+        favoriteViewModel.getCharacterAddedEvent().observe(getViewLifecycleOwner(), stringEvent -> {
+            //Do nothing
+        });
+        favoriteViewModel.getCharacterDeletedEvent().observe(getViewLifecycleOwner(), stringEvent -> {
+            //Do nothing
+        });
     }
 
 }

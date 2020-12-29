@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
+import com.example.bb_characters.data.repository.CharacterDisplayDataRepository;
+import com.example.bb_characters.data.repository.CharacterDisplayRepository;
+import com.example.bb_characters.data.repository.local.CharacterDisplayLocalDataSource;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterDetailsViewItem;
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
 
@@ -13,10 +16,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bb_characters.R;
+import com.example.bb_characters.ui.viewmodel.FavoriteViewModel;
 
 import java.util.List;
 
@@ -24,8 +31,10 @@ public class CharacterDetailsActivity extends AppCompatActivity {
 
     private ImageView photo;
     private TextView name, nickname, birthday, portrayed;
+    private Button addToFavoriteButton;
     private int characterId;
     private CharactersViewModel charactersViewModel;
+    private FavoriteViewModel favoriteViewModel;
 
 
     @Override
@@ -42,6 +51,15 @@ public class CharacterDetailsActivity extends AppCompatActivity {
         this.characterId = i.getIntExtra("CharacterId", 1);
 
         registerViewModel();
+
+        addToFavoriteButton = findViewById(R.id.add_to_favorite);
+        addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("ONCLICK", "Ajout à la bdd avec l'id : " + characterId);
+                favoriteViewModel.addCharacterToFavorites(characterId);
+            }
+        });
     }
 
     @Override
@@ -53,7 +71,7 @@ public class CharacterDetailsActivity extends AppCompatActivity {
     // On récupère l'intstance du view model via le view model factory
     private void registerViewModel() {
         charactersViewModel = new ViewModelProvider(this, FakeDependencyInjection.getViewModelFactory()).get(CharactersViewModel.class);
-
+        favoriteViewModel = new ViewModelProvider(this, FakeDependencyInjection.getViewModelFactory()).get(FavoriteViewModel.class);
         charactersViewModel.getCharacter().observe(this, new Observer<List<CharacterDetailsViewItem>>() {
             @Override
             public void onChanged(List<CharacterDetailsViewItem> characterDetailsViewItemList) {

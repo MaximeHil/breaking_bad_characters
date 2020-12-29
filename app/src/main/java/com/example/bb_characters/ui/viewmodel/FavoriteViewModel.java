@@ -13,7 +13,9 @@ import com.example.bb_characters.ui.characterdisplay.favoriteCharacters.mapper.E
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.ResourceSubscriber;
 
@@ -31,8 +33,19 @@ public class FavoriteViewModel extends ViewModel {
 
     private MutableLiveData<List<CharacterFavoriteViewItem>> favoriteCharacters = new MutableLiveData<>();
 
+    final MutableLiveData<Event<Integer>> characterAddedEvent = new MutableLiveData<>();
+    final MutableLiveData<Event<Integer>> characterDeletedEvent = new MutableLiveData<>();
+
     public MutableLiveData<List<CharacterFavoriteViewItem>> getCharacters(){
         return favoriteCharacters;
+    }
+
+    public MutableLiveData<Event<Integer>> getCharacterAddedEvent() {
+        return characterAddedEvent;
+    }
+
+    public MutableLiveData<Event<Integer>> getCharacterDeletedEvent() {
+        return characterDeletedEvent;
     }
 
     public void getFavoriteCharacters(){
@@ -62,4 +75,39 @@ public class FavoriteViewModel extends ViewModel {
                 }));
     }
 
+    public void addCharacterToFavorites(final int charId){
+        compositeDisposable.add(characterDisplayRepository.addCharacterToFavorites(charId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableCompletableObserver() {
+
+                    @Override
+                    public void onComplete() {
+                        characterAddedEvent.setValue(new Event<>(charId));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println(e.toString());
+                    }
+                }));
+    }
+
+    public void deleteCharacterFromFavorites(final int charId){
+        compositeDisposable.add(characterDisplayRepository.removeCharacterFromFavorites(charId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableCompletableObserver() {
+
+                    @Override
+                    public void onComplete() {
+                        characterDeletedEvent.setValue(new Event<>(charId));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println(e.toString());
+                    }
+                }));
+    }
 }

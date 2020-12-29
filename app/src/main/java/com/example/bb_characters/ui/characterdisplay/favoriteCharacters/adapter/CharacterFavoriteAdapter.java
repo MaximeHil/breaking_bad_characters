@@ -1,5 +1,6 @@
 package com.example.bb_characters.ui.characterdisplay.favoriteCharacters.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class CharacterFavoriteAdapter extends RecyclerView.Adapter<CharacterFavo
 
     public void bindViewModels(List<CharacterFavoriteViewItem> characterFavoriteViewItemList) {
         this.characterFavoriteViewItemList.clear();
+        Log.i("BINDVIEWMODELS", "List de character de taille : " + characterFavoriteViewItemList.size());
         this.characterFavoriteViewItemList.addAll(characterFavoriteViewItemList);
         notifyDataSetChanged();
     }
