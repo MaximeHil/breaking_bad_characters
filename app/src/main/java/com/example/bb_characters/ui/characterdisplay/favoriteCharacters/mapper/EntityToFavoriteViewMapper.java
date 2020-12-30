@@ -13,6 +13,8 @@ public class EntityToFavoriteViewMapper {
         CharacterFavoriteViewItem cfvi = new CharacterFavoriteViewItem();
         cfvi.setId(entity.getId());
         cfvi.setName(entity.getName());
+        cfvi.setImgUrl(entity.getImgUrl());
+        cfvi.setNickname(entity.getNickname());
         return cfvi;
     }
 

@@ -4,11 +4,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.bb_characters.R;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterViewItem;
 
@@ -18,27 +22,54 @@ import java.util.List;
 
 public class CharacterFavoriteAdapter extends RecyclerView.Adapter<CharacterFavoriteAdapter.CharacterFavoriteViewHolder>{
 
-    private List<CharacterFavoriteViewItem> characterFavoriteViewItemList;
+    private final List<CharacterFavoriteViewItem> characterFavoriteViewItemList;
+    private CharacterFavoriteActionInterface characterFavoriteActionInterface;
 
     public static class CharacterFavoriteViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView nameTextView;
-        private View v;
+        private final TextView nameTextView;
+        private final TextView nicknameTextView;
+        private final ImageView character_image;
+        private final ImageButton delete_button;
+        private final View v;
+        private final CharacterFavoriteActionInterface characterFavoriteActionInterface;
+        private CharacterFavoriteViewItem characterFavoriteViewItem;
 
-        public CharacterFavoriteViewHolder(@NonNull View itemView) {
+        public CharacterFavoriteViewHolder(@NonNull View itemView, final CharacterFavoriteActionInterface characterFavoriteActionInterface) {
 
             super(itemView);
             this.v = itemView;
             nameTextView =v.findViewById(R.id.favorite_name);
+            character_image = v.findViewById(R.id.character_imageview);
+            nicknameTextView = v.findViewById(R.id.favorite_nickname);
+            delete_button = v.findViewById(R.id.delete_icon);
+            this.characterFavoriteActionInterface = characterFavoriteActionInterface;
+            setupListeners();
+        }
+
+        private void setupListeners(){
+            delete_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    characterFavoriteActionInterface.onRemoveFavorite(characterFavoriteViewItem.getId());
+                }
+            });
         }
 
         void bind(CharacterFavoriteViewItem characterFavoriteViewItem){
+            this.characterFavoriteViewItem = characterFavoriteViewItem;
             this.nameTextView.setText(characterFavoriteViewItem.getName());
+            this.nicknameTextView.setText("\"" + characterFavoriteViewItem.getNickname() + "\"");
+            Glide.with(v)
+                    .load(characterFavoriteViewItem.getImgUrl())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(character_image);
         }
     }
 
-    public CharacterFavoriteAdapter(){
+    public CharacterFavoriteAdapter(CharacterFavoriteActionInterface characterFavoriteActionInterface){
         this.characterFavoriteViewItemList = new ArrayList<>();
+        this.characterFavoriteActionInterface = characterFavoriteActionInterface;
     }
 
     public void bindViewModels(List<CharacterFavoriteViewItem> characterFavoriteViewItemList) {
@@ -53,8 +84,7 @@ public class CharacterFavoriteAdapter extends RecyclerView.Adapter<CharacterFavo
     public CharacterFavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.favorite_character_item, parent, false);
-        CharacterFavoriteViewHolder characterFavoriteViewHolder = new CharacterFavoriteViewHolder(v);
-        return characterFavoriteViewHolder;
+        return new CharacterFavoriteViewHolder(v, characterFavoriteActionInterface);
     }
 
     @Override

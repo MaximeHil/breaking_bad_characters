@@ -18,6 +18,7 @@ import com.example.bb_characters.R;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterActionInterface;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterAdapter;
+import com.example.bb_characters.ui.characterdisplay.favoriteCharacters.adapter.CharacterFavoriteActionInterface;
 import com.example.bb_characters.ui.characterdisplay.favoriteCharacters.adapter.CharacterFavoriteAdapter;
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
 import com.example.bb_characters.ui.viewmodel.Event;
@@ -30,7 +31,7 @@ import java.util.List;
  * Use the {@link FavoriteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements CharacterFavoriteActionInterface {
 
     public static final String TAB_NAME = "Favorites";
     private View rootView;
@@ -63,7 +64,7 @@ public class FavoriteFragment extends Fragment {
 
     private void setupRecyclerView() {
         recyclerView = rootView.findViewById(R.id.recycler_view);
-        characterFavoriteAdapter = new CharacterFavoriteAdapter();
+        characterFavoriteAdapter = new CharacterFavoriteAdapter(this);
         recyclerView.setAdapter(characterFavoriteAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -81,4 +82,8 @@ public class FavoriteFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onRemoveFavorite(int charId) {
+        favoriteViewModel.deleteCharacterFromFavorites(charId);
+    }
 }
