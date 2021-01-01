@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#C1C1C1</color>
     <color name="bbgreen">#0f5d35</color>
+    <color name="bblightgreen">#48C687</color>
     <color name="bbyellow">#e7b111</color>
     <color name="delete">#CD1313</color>
 </resources>

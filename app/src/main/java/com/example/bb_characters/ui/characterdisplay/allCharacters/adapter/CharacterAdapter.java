@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -26,17 +27,22 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
      */
     public static class CharacterViewHolder extends RecyclerView.ViewHolder {
         private ImageButton characterImageButton;
+        private TextView nameTextView;
         private View v;
         private CharacterViewItem characterViewItem;
         private CharacterActionInterface characterActionInterface;
+        private boolean isList;
 
-        public CharacterViewHolder(View view, final CharacterActionInterface characterActionInterface) {
+        public CharacterViewHolder(View view, final CharacterActionInterface characterActionInterface, boolean isList) {
             super(view);
             // Define click listener for the ViewHolder's View
             this.v = view;
             this.characterActionInterface = characterActionInterface;
             characterImageButton = view.findViewById(R.id.character_imageview);
-
+            this.isList = isList;
+            //if(isList){
+                this.nameTextView = v.findViewById(R.id.character_text);
+            //}
             setupListener();
 
         }
@@ -59,6 +65,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             Glide.with(v)
                     .load(viewItem.getImageUrl())
                     .into(characterImageButton);
+
+            if(isList){
+                this.nameTextView.setText(characterViewItem.getName());
+            }
         }
     }
 
@@ -81,10 +91,16 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     @Override
     public CharacterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(isList ? R.layout.character_image_with_name : R.layout.character_image, viewGroup, false);
+        View view;
+        if(isList){
+            view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.character_image_with_name, viewGroup, false);
+        }else {
+            view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.character_image, viewGroup, false);
+        }
 
-        return new CharacterViewHolder(view, characterActionInterface);
+        return new CharacterViewHolder(view, characterActionInterface, isList);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

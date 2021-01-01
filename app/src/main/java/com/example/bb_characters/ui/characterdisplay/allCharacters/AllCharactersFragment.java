@@ -80,7 +80,7 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
         recyclerView = rootView.findViewById(R.id.recycler_view);
 
         final RecyclerView.LayoutManager layoutManager_lign = new LinearLayoutManager(getContext());
-        final RecyclerView.LayoutManager layoutManager_grid = new GridLayoutManager(getContext(),2);
+        final RecyclerView.LayoutManager layoutManager_grid = new GridLayoutManager(getContext(),3);
 
         layoutManager = layoutManager_grid;
         recyclerView.setLayoutManager(layoutManager);
@@ -105,7 +105,7 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
 
         characterAdapter = new CharacterAdapter(this, asList);
         recyclerView.setAdapter(characterAdapter);
-        characterAdapter.bindViewModels(new ArrayList<>());
+        //characterAdapter.bindViewModels(new ArrayList<>());
         //recyclerView.setAdapter(characterAdapter);
 
     }

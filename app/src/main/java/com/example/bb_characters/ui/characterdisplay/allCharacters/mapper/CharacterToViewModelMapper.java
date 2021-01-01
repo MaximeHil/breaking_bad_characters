@@ -12,7 +12,7 @@ public class CharacterToViewModelMapper {
         CharacterViewItem cvi = new CharacterViewItem();
         cvi.setCharacterId(c.getChar_id());
         cvi.setImageUrl(c.getImg());
-
+        cvi.setName(c.getName());
         return cvi;
     }
 

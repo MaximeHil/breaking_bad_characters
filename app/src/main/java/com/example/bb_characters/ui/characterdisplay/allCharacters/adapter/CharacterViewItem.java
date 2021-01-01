@@ -4,6 +4,7 @@ public class CharacterViewItem {
 
     private int characterId;
     private String imageUrl;
+    private String name;
 
     public int getCharacterId() {
         return characterId;
@@ -19,5 +20,13 @@ public class CharacterViewItem {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
