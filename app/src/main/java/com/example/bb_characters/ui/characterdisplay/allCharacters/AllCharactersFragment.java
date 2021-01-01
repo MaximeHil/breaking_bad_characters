@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -23,6 +24,7 @@ import com.example.bb_characters.ui.characterdisplay.CharacterDetailsActivity;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterActionInterface;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterAdapter;
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -37,7 +39,6 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
     private RecyclerView.LayoutManager layoutManager;
     private CharacterAdapter characterAdapter_l, characterAdapter_g;
     private CharactersViewModel charactersViewModel;
-    private ImageButton list_button, grid_button;
     private boolean asList;
 
     private AllCharactersFragment(){
@@ -59,15 +60,9 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setButtons();
         setupRecyclerView();
 
         registerViewModels();
-    }
-
-    private void setButtons() {
-        list_button = rootView.getRootView().findViewById(R.id.list_button);
-        grid_button = rootView.getRootView().findViewById(R.id.grid_button);
     }
 
     private void registerViewModels() {
@@ -89,22 +84,22 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
         layoutManager = layoutManager_grid;
         recyclerView.setLayoutManager(layoutManager);
 
-        list_button.setOnClickListener(v -> {
-            list_button.setVisibility(View.INVISIBLE);
-            grid_button.setVisibility(View.VISIBLE);
-            layoutManager = layoutManager_lign;
-            asList = true;
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(characterAdapter_l);
-        });
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(v -> {
+            if(!asList){
+                fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_grid_on_24));
+                layoutManager = layoutManager_lign;
+                asList = true;
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(characterAdapter_l);
+            } else {
+                fab.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_list_24));
+                layoutManager = layoutManager_grid;
+                asList = false;
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(characterAdapter_g);
+            }
 
-        grid_button.setOnClickListener(v -> {
-            grid_button.setVisibility(View.INVISIBLE);
-            list_button.setVisibility(View.VISIBLE);
-            layoutManager = layoutManager_grid;
-            asList = false;
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(characterAdapter_g);
         });
 
         recyclerView.setAdapter(characterAdapter_g);
