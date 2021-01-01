@@ -4,7 +4,7 @@ public class CharacterViewItem {
 
     private int characterId;
     private String imageUrl;
-    private String name;
+    private String name, nickname;
 
     public int getCharacterId() {
         return characterId;
@@ -28,5 +28,13 @@ public class CharacterViewItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

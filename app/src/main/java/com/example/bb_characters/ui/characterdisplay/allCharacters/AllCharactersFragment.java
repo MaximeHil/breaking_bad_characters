@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bb_characters.R;
+import com.example.bb_characters.data.api.model.Character;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
 import com.example.bb_characters.ui.characterdisplay.CharacterDetailsActivity;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterActionInterface;
@@ -34,7 +35,7 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
     private View rootView;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private CharacterAdapter characterAdapter;
+    private CharacterAdapter characterAdapter_l, characterAdapter_g;
     private CharactersViewModel charactersViewModel;
     private ImageButton list_button, grid_button;
     private boolean asList;
@@ -72,8 +73,8 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
     private void registerViewModels() {
         charactersViewModel = new ViewModelProvider(requireActivity(), FakeDependencyInjection.getViewModelFactory()).get(CharactersViewModel.class);
         charactersViewModel.getAllCharacters();
-        charactersViewModel.getCharacters().observe(getViewLifecycleOwner(), characterItemViewModelList -> characterAdapter.bindViewModels(characterItemViewModelList));
-
+        charactersViewModel.getCharacters().observe(getViewLifecycleOwner(), characterItemViewModelList -> characterAdapter_g.bindViewModels(characterItemViewModelList));
+        charactersViewModel.getCharacters().observe(getViewLifecycleOwner(), characterItemViewModelList -> characterAdapter_l.bindViewModels(characterItemViewModelList));
     }
 
     private void setupRecyclerView() {
@@ -81,6 +82,9 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
 
         final RecyclerView.LayoutManager layoutManager_lign = new LinearLayoutManager(getContext());
         final RecyclerView.LayoutManager layoutManager_grid = new GridLayoutManager(getContext(),3);
+
+        this.characterAdapter_l = new CharacterAdapter(this, true);
+        this.characterAdapter_g = new CharacterAdapter(this, false);
 
         layoutManager = layoutManager_grid;
         recyclerView.setLayoutManager(layoutManager);
@@ -90,8 +94,8 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
             grid_button.setVisibility(View.VISIBLE);
             layoutManager = layoutManager_lign;
             asList = true;
-            Log.i("LISTENER", "Mode list");
             recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(characterAdapter_l);
         });
 
         grid_button.setOnClickListener(v -> {
@@ -99,14 +103,11 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
             list_button.setVisibility(View.VISIBLE);
             layoutManager = layoutManager_grid;
             asList = false;
-            Log.i("LISTENER", "Mode grille");
             recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(characterAdapter_g);
         });
 
-        characterAdapter = new CharacterAdapter(this, asList);
-        recyclerView.setAdapter(characterAdapter);
-        //characterAdapter.bindViewModels(new ArrayList<>());
-        //recyclerView.setAdapter(characterAdapter);
+        recyclerView.setAdapter(characterAdapter_g);
 
     }
 

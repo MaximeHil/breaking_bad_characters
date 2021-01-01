@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
+    android:layout_margin="4dp"
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,10 +14,12 @@
         >
 
         <ImageButton
-            android:id="@+id/character_imageview"
+            android:id="@+id/character_imageButton_list"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="fitCenter"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:background="@android:color/transparent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,8 +29,18 @@
             android:id="@+id/character_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/character_imageview"
+            app:layout_constraintLeft_toRightOf="@id/character_imageButton_list"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/character_nickname_text"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/character_nickname_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/character_imageButton_list"
+            app:layout_constraintTop_toBottomOf="@id/character_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />

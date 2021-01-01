@@ -27,7 +27,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
      */
     public static class CharacterViewHolder extends RecyclerView.ViewHolder {
         private ImageButton characterImageButton;
-        private TextView nameTextView;
+        private TextView nameTextView, nicknameTextView;
         private View v;
         private CharacterViewItem characterViewItem;
         private CharacterActionInterface characterActionInterface;
@@ -38,11 +38,14 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             // Define click listener for the ViewHolder's View
             this.v = view;
             this.characterActionInterface = characterActionInterface;
-            characterImageButton = view.findViewById(R.id.character_imageview);
             this.isList = isList;
-            //if(isList){
+            if(isList){
+                this.characterImageButton = v.findViewById(R.id.character_imageButton_list);
                 this.nameTextView = v.findViewById(R.id.character_text);
-            //}
+                this.nicknameTextView = v.findViewById(R.id.character_nickname_text);
+            } else {
+                this.characterImageButton = view.findViewById(R.id.character_imageButton_grid);
+            }
             setupListener();
 
         }
@@ -68,6 +71,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
             if(isList){
                 this.nameTextView.setText(characterViewItem.getName());
+                this.nicknameTextView.setText("\"" + characterViewItem.getNickname() + "\"");
             }
         }
     }
@@ -91,14 +95,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     @Override
     public CharacterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view;
-        if(isList){
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.character_image_with_name, viewGroup, false);
-        }else {
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.character_image, viewGroup, false);
-        }
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(isList ? R.layout.character_image_with_name : R.layout.character_image, viewGroup, false);
 
         return new CharacterViewHolder(view, characterActionInterface, isList);
     }

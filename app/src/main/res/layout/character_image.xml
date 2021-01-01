@@ -15,7 +15,7 @@
         >
 
         <ImageButton
-            android:id="@+id/character_imageview"
+            android:id="@+id/character_imageButton_grid"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
