@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.bb_characters.R;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
@@ -85,5 +86,7 @@ public class FavoriteFragment extends Fragment implements CharacterFavoriteActio
     @Override
     public void onRemoveFavorite(int charId) {
         favoriteViewModel.deleteCharacterFromFavorites(charId);
+        Toast.makeText(getContext(),
+                "Character removed from favorites", Toast.LENGTH_SHORT).show();
     }
 }

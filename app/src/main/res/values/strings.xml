@@ -12,11 +12,11 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="name">Name :</string>
-    <string name="nickname">Nickname :</string>
     <string name="birthday">Birthday :</string>
     <string name="portrayed_by">Portrayed by :</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="add_to_favorite">Add</string>
+    <string name="add_to_favorite">Add to favorites</string>
     <string name="delete_from_favorite">Delete from favorite button</string>
+    <string name="nickname">\"%1$s\"</string>
 </resources>

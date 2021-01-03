@@ -43,11 +43,16 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
                 this.characterImageButton = v.findViewById(R.id.character_imageButton_list);
                 this.nameTextView = v.findViewById(R.id.character_text);
                 this.nicknameTextView = v.findViewById(R.id.character_nickname_text);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        characterActionInterface.onCharacterClicked(characterViewItem.getCharacterId());
+                    }
+                });
             } else {
                 this.characterImageButton = view.findViewById(R.id.character_imageButton_grid);
             }
             setupListener();
-
         }
 
         private void setupListener() {
@@ -72,6 +77,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             if(isList){
                 this.nameTextView.setText(characterViewItem.getName());
                 this.nicknameTextView.setText("\"" + characterViewItem.getNickname() + "\"");
+                //this.nicknameTextView.setText((v.getContext().getResources().getString(R.string.nickname, characterViewItem.getNickname())));
             }
         }
     }

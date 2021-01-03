@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bb_characters.R;
 import com.example.bb_characters.ui.viewmodel.FavoriteViewModel;
@@ -35,7 +36,6 @@ public class CharacterDetailsActivity extends AppCompatActivity {
     private int characterId;
     private CharactersViewModel charactersViewModel;
     private FavoriteViewModel favoriteViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,10 @@ public class CharacterDetailsActivity extends AppCompatActivity {
         addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("ONCLICK", "Ajout à la bdd avec l'id : " + characterId);
                 favoriteViewModel.addCharacterToFavorites(characterId);
+
+                Toast.makeText(getApplicationContext(),
+                        "Character added to favorites", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -91,10 +93,14 @@ public class CharacterDetailsActivity extends AppCompatActivity {
         birthday = findViewById(R.id.character_birthday);
         portrayed = findViewById(R.id.character_portrayed);
 
-        name.append(" " + characterToDisplay.getName());
-        nickname.append(" " + characterToDisplay.getNickname());
-        birthday.append(" " + characterToDisplay.getBirthday());
-        portrayed.append(" " + characterToDisplay.getPortrayed());
+        name.setText(characterToDisplay.getName());
+        nickname.setText(getString(R.string.nickname, characterToDisplay.getNickname()));
+        if(characterToDisplay.getBirthday().equals("Unknown")){
+            birthday.setText(characterToDisplay.getBirthday() + " birthday");
+        } else {
+            birthday.setText(characterToDisplay.getBirthday());
+        }
+        portrayed.setText(characterToDisplay.getPortrayed());
         Glide.with(this)
                 .load(characterToDisplay.getUrl())
                 .into(photo);
