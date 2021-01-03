@@ -1,7 +1,5 @@
 package com.example.bb_characters.ui.viewmodel;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,6 +17,7 @@ import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.ResourceSubscriber;
 
+// Le view model se charge de faire appel au repository pour récupérer les infos nécessaires à la vue
 public class FavoriteViewModel extends ViewModel {
 
     private CharacterDisplayRepository characterDisplayRepository;

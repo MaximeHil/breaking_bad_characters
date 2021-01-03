@@ -1,6 +1,5 @@
 package com.example.bb_characters.data.repository;
 
-import com.example.bb_characters.data.api.model.Character;
 import com.example.bb_characters.data.api.model.CharacterDetails;
 import com.example.bb_characters.data.entity.CharacterEntity;
 import com.example.bb_characters.data.repository.local.CharacterDisplayLocalDataSource;
@@ -15,6 +14,10 @@ import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 
+/** Implémente l'interface repository
+ * C'est ici qu'on choisit si l'on passe par la bdd (local) ou par l'api (remote)
+ * pour récupérer les données
+ */
 public class CharacterDisplayDataRepository implements CharacterDisplayRepository{
 
     private CharacterDisplayRemoteDataSource characterDisplayRemoteDataSource;

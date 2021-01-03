@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * Cette classe défini l'objet Character tel qu'il sera stocké en base de données
+ */
 @Entity(tableName = "characters")
 public class CharacterEntity {
 

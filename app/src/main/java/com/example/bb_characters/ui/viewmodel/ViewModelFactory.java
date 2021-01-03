@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bb_characters.data.repository.CharacterDisplayRepository;
 
+// S'occupe de générer les view models
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
     private final CharacterDisplayRepository characterDisplayRepository;

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bb_characters.R;
-import com.example.bb_characters.data.api.model.Character;
 import com.example.bb_characters.data.di.FakeDependencyInjection;
 import com.example.bb_characters.ui.characterdisplay.CharacterDetailsActivity;
 import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.CharacterActionInterface;
@@ -26,10 +25,8 @@ import com.example.bb_characters.ui.characterdisplay.allCharacters.adapter.Chara
 import com.example.bb_characters.ui.viewmodel.CharactersViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-
 /**
- * A placeholder fragment containing a simple view.
+ * Le fragment contenant la liste de tous les personnages
  */
 public class AllCharactersFragment extends Fragment implements CharacterActionInterface {
 
@@ -72,6 +69,7 @@ public class AllCharactersFragment extends Fragment implements CharacterActionIn
         charactersViewModel.getCharacters().observe(getViewLifecycleOwner(), characterItemViewModelList -> characterAdapter_l.bindViewModels(characterItemViewModelList));
     }
 
+    // Cette méthode permet d'initialiser le recyclerView et le onClickListener sur le FAB
     private void setupRecyclerView() {
         recyclerView = rootView.findViewById(R.id.recycler_view);
 

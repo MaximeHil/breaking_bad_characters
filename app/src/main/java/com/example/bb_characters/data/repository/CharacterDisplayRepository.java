@@ -1,6 +1,5 @@
 package com.example.bb_characters.data.repository;
 
-import com.example.bb_characters.data.api.model.Character;
 import com.example.bb_characters.data.api.model.CharacterDetails;
 import com.example.bb_characters.data.entity.CharacterEntity;
 
@@ -10,6 +9,9 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
+/**
+ * Cette interface liste toutes les méthodes disponibles concernant les characters
+ */
 public interface CharacterDisplayRepository {
 
     Single<List<CharacterDetails>> getAllCharacters();

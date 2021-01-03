@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Cette classe correspond au format de réponse de l'API
+ */
 public class CharacterDetails {
 
     @SerializedName("char_id")

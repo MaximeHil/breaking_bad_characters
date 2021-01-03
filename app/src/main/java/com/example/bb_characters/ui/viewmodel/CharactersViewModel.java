@@ -20,6 +20,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * Le view model se charge de faire appel au repository pour récupérer les infos nécessaires à la vue
+ */
 public class CharactersViewModel extends ViewModel {
 
     private CharacterDisplayRepository characterDisplayRepository;
@@ -46,6 +49,7 @@ public class CharactersViewModel extends ViewModel {
         return character;
     }
 
+    // Mets à jour la liste de personnage dans la variable "characters"
     public void getAllCharacters(){
         compositeDisposable.clear();
         compositeDisposable.add(characterDisplayRepository.getAllCharacters()
@@ -68,8 +72,8 @@ public class CharactersViewModel extends ViewModel {
                 }));
     }
 
+    // Remplace la valeur de la variable "character" par le personnage dont l'id est passé en argument
     public void getCharacterById(int id){
-        Log.i("DANS LE VIEW MODEL","Récupération du personnage id = " + id);
         compositeDisposable.clear();
         compositeDisposable.add(characterDisplayRepository.getCharacter(id)
                 .subscribeOn(Schedulers.io())
@@ -78,7 +82,6 @@ public class CharactersViewModel extends ViewModel {
 
                     @Override
                     public void onSuccess(@NonNull List<CharacterDetails> characterDetails) {
-                        Log.i("DANS LE VIEW MODEL","Succès !");
                         character.setValue(characterDetailsToViewItemMapper.map(characterDetails));
                     }
 

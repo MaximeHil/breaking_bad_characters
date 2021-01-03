@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.ImageButton;
 
+/**
+ * Activité principale qui contient 2 fragments dans un viewPager
+ */
 public class MainActivity extends AppCompatActivity {
 
     boolean list = false; // true if view is on list mode, false if view is on grid mode.
@@ -55,11 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 return 2;
             }
         });
-        /*SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);*/
     }
 
 }

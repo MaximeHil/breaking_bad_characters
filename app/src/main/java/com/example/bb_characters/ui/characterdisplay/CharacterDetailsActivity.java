@@ -28,6 +28,9 @@ import com.example.bb_characters.ui.viewmodel.FavoriteViewModel;
 
 import java.util.List;
 
+/**
+ * Cette activité se charge de l'affichage des détails d'un personnage
+ */
 public class CharacterDetailsActivity extends AppCompatActivity {
 
     private ImageView photo;
@@ -53,6 +56,8 @@ public class CharacterDetailsActivity extends AppCompatActivity {
         registerViewModel();
 
         addToFavoriteButton = findViewById(R.id.add_to_favorite);
+
+        // Gère l'ajout d'un personnage aux favoris quand on clique sur "Add"
         addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +89,7 @@ public class CharacterDetailsActivity extends AppCompatActivity {
 
     }
 
-    // Permet d'afficher sur la page les informations passées en argument
+    // Permet d'afficher sur la page les informations du personnage passé en argument
     private void setLayout(CharacterDetailsViewItem characterToDisplay) {
 
         photo = findViewById(R.id.character_photo);
